@@ -1,14 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://c0u3w4tkaveo1"]
+[gd_scene load_steps=4 format=3 uid="uid://c0u3w4tkaveo1"]
 
-[ext_resource type="Texture2D" uid="uid://gqcxx6vwhisi" path="res://purple.png" id="1_1xonb"]
-[ext_resource type="PackedScene" uid="uid://cg1wqrk41ng2f" path="res://Player.tscn" id="2_0v2s2"]
+[ext_resource type="Script" path="res://scripts/level.gd" id="1_nmlee"]
+[ext_resource type="PackedScene" uid="uid://cg1wqrk41ng2f" path="res://scenes/Player.tscn" id="2_0v2s2"]
+[ext_resource type="Texture2D" uid="uid://gqcxx6vwhisi" path="res://assets/purple.png" id="2_uywu7"]
 
 [node name="Level1" type="Node2D"]
+script = ExtResource("1_nmlee")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 offset_right = 1153.0
 offset_bottom = 643.0
-texture = ExtResource("1_1xonb")
+texture = ExtResource("2_uywu7")
 stretch_mode = 1
 
 [node name="Player" parent="." instance=ExtResource("2_0v2s2")]
