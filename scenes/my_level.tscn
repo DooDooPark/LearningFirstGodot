@@ -1,17 +1,67 @@
-[gd_scene load_steps=4 format=3 uid="uid://c0u3w4tkaveo1"]
+[gd_scene load_steps=6 format=3 uid="uid://c0u3w4tkaveo1"]
 
-[ext_resource type="Script" path="res://scripts/level.gd" id="1_nmlee"]
 [ext_resource type="PackedScene" uid="uid://cg1wqrk41ng2f" path="res://scenes/Player.tscn" id="2_0v2s2"]
 [ext_resource type="Texture2D" uid="uid://gqcxx6vwhisi" path="res://assets/purple.png" id="2_uywu7"]
+[ext_resource type="PackedScene" uid="uid://bleb5p3ppd55e" path="res://scenes/maze.tscn" id="4_gt0y7"]
+
+[sub_resource type="GDScript" id="GDScript_qm7y6"]
+script/source = "extends Node2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+#	print('hello world');
+	pass # Replace with function body.
+
+
+
+func _on_maze_body_exited(body):
+#	get scene
+	get_tree().reload_current_scene()
+#	print('body out')
+"
+
+[sub_resource type="LabelSettings" id="LabelSettings_hlwu6"]
+font_size = 32
 
 [node name="Level1" type="Node2D"]
-script = ExtResource("1_nmlee")
+script = SubResource("GDScript_qm7y6")
 
-[node name="TextureRect" type="TextureRect" parent="."]
-offset_right = 1153.0
-offset_bottom = 643.0
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -10
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+z_index = -15
+offset_top = -356.0
+offset_right = 1981.0
+offset_bottom = 1224.0
 texture = ExtResource("2_uywu7")
 stretch_mode = 1
 
 [node name="Player" parent="." instance=ExtResource("2_0v2s2")]
 position = Vector2(555, 285)
+
+[node name="Maze" parent="." instance=ExtResource("4_gt0y7")]
+z_index = -10
+position = Vector2(525, 490)
+
+[node name="Start" type="Label" parent="."]
+z_index = -10
+offset_left = 513.0
+offset_top = 179.0
+offset_right = 608.0
+offset_bottom = 227.0
+text = "START"
+label_settings = SubResource("LabelSettings_hlwu6")
+
+[node name="End" type="Label" parent="."]
+z_index = -10
+offset_left = 1274.0
+offset_top = -117.0
+offset_right = 1369.0
+offset_bottom = -69.0
+text = "END"
+label_settings = SubResource("LabelSettings_hlwu6")
+
+[connection signal="body_entered" from="Maze" to="." method="_on_maze_body_entered"]
+[connection signal="body_exited" from="Maze" to="." method="_on_maze_body_exited"]
